@@ -5,4 +5,4 @@ pages_build_output_dir = "dist"
 [[d1_databases]]
 binding = "DB"
 database_name = "al-baraa-db"
-database_id = "to-be-filled-later"
+database_id = "dbca3eac-058f-4509-8273-b0d769f17bf9"
