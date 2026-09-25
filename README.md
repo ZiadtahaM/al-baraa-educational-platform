@@ -1,5 +1,4 @@
 <div align="center">
-  <img src="https://via.placeholder.com/1200x400.png?text=Al-Baraa+Educational+Platform" alt="Al-Baraa Platform Banner" />
   <h1>🎓 Al-Baraa Educational Platform</h1>
   <p><strong>A Next-Generation, Serverless Full-Stack Educational Dashboard</strong></p>
   
