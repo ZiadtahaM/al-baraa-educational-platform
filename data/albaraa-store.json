@@ -2,7 +2,7 @@
   "meta": {
     "system": "Al-Baraa OS",
     "version": "2.0.0",
-    "lastSyncedAt": "2026-10-19T20:14:06.740Z"
+    "lastSyncedAt": "2026-10-20T16:37:27.601Z"
   },
   "plans": [
     {
@@ -64,10 +64,10 @@
       "hourlyRateMinor": 5000,
       "teacherHourlySplitMinor": 3500,
       "academyCommissionMinor": 1500,
-      "totalMinutesPurchased": 6540,
-      "minutesUsed": 1410,
-      "minutesRemaining": 5130,
-      "version": 51,
+      "totalMinutesPurchased": 7530,
+      "minutesUsed": 1500,
+      "minutesRemaining": 6030,
+      "version": 56,
       "lowBalanceAlert": false,
       "whatsappReupLink": null,
       "transactions": [
@@ -864,6 +864,86 @@
           "academyFeeMinor": 750,
           "timestamp": "2026-10-19T20:14:06.734Z",
           "fencingToken": 51
+        },
+        {
+          "id": "tx_457eb57f-c3ea-4ccd-aeb3-089ce4f88f41",
+          "type": "TUTOR_TARDINESS_SLA_PENALTY",
+          "sessionId": "sess_tutor_late_1",
+          "teacherId": "teacher-1",
+          "delayMinutes": 18,
+          "bonusMinutes": 30,
+          "teacherPenaltyMinor": 1750,
+          "policyApplied": "TUTOR_SLA_BREACH_COMPENSATED",
+          "timestamp": "2026-10-20T14:13:55.331Z",
+          "fencingToken": 52
+        },
+        {
+          "id": "tx_b4837fdb-44b8-4a23-957b-cacde94cc96c",
+          "type": "PURCHASE_PACK",
+          "packId": "pack-8h",
+          "hours": 8,
+          "minutes": 480,
+          "priceMinor": 20000,
+          "currency": "SAR",
+          "teacherId": "teacher-1",
+          "subjectId": "quran-tajweed",
+          "timestamp": "2026-10-20T15:11:00.179Z",
+          "fencingToken": 53
+        },
+        {
+          "id": "tx_37c578fd-ef23-4eaa-b41b-d7b0dc9eae19",
+          "type": "SESSION_CANCELLATION",
+          "sessionId": "sess_free_1792509060210",
+          "hoursNotice": 6.5,
+          "penaltyMinutes": 0,
+          "teacherId": "teacher-1",
+          "reason": "School exam conflict",
+          "policyApplied": "FREE_CANCELLATION",
+          "teacherPayoutMinor": 0,
+          "academyFeeMinor": 0,
+          "timestamp": "2026-10-20T15:11:00.221Z",
+          "fencingToken": 53
+        },
+        {
+          "id": "tx_d2c78293-4d64-4b2d-87cd-85fdefb5bc9e",
+          "type": "SESSION_CANCELLATION",
+          "sessionId": "sess_late_1792509060243",
+          "hoursNotice": 1.5,
+          "penaltyMinutes": 30,
+          "teacherId": "teacher-1",
+          "reason": "Family dinner conflict",
+          "policyApplied": "LATE_CANCELLATION_FEE_APPLIED",
+          "teacherPayoutMinor": 1750,
+          "academyFeeMinor": 750,
+          "timestamp": "2026-10-20T15:11:00.260Z",
+          "fencingToken": 54
+        },
+        {
+          "id": "tx_4fd05717-8a24-488b-bfab-35e8609ad2eb",
+          "type": "PURCHASE_PACK",
+          "packId": "pack-8h",
+          "hours": 8,
+          "minutes": 480,
+          "priceMinor": 20000,
+          "currency": "SAR",
+          "teacherId": "teacher-1",
+          "subjectId": "quran-tajweed",
+          "timestamp": "2026-10-20T15:11:37.994Z",
+          "fencingToken": 55
+        },
+        {
+          "id": "tx_17f0a92b-5938-4423-8c0e-9311411dab30",
+          "type": "SESSION_DEBIT",
+          "sessionId": "sess_1792509098038",
+          "durationMinutes": 60,
+          "teacherId": "teacher-1",
+          "topic": "سورة البقرة - أحكام التجويد والترتيل",
+          "teacherPayoutMinor": 3500,
+          "academyFeeMinor": 1500,
+          "currency": "SAR",
+          "notes": "أداء متميز في مخارج الحروف",
+          "timestamp": "2026-10-20T15:11:38.038Z",
+          "fencingToken": 56
         }
       ]
     },
@@ -1229,6 +1309,130 @@
           "teacherId": "teacher-1",
           "subjectId": "general-curriculum",
           "timestamp": "2026-10-19T19:03:23.199Z",
+          "fencingToken": 2
+        }
+      ]
+    },
+    "student-e2e-omar": {
+      "studentId": "student-e2e-omar",
+      "studentName": "student-e2e-omar",
+      "parentPhone": "+966500000000",
+      "parentTimezone": "Asia/Riyadh",
+      "currency": "SAR",
+      "hourlyRateMinor": 5000,
+      "teacherHourlySplitMinor": 3500,
+      "academyCommissionMinor": 1500,
+      "totalMinutesPurchased": 3690,
+      "minutesUsed": 0,
+      "minutesRemaining": 3690,
+      "version": 7,
+      "lowBalanceAlert": false,
+      "whatsappReupLink": null,
+      "transactions": [
+        {
+          "id": "tx_06b32295-6a82-46b6-a78c-6ee621fb5d90",
+          "type": "PURCHASE_PACK",
+          "packId": "custom-pack",
+          "hours": 20,
+          "minutes": 1200,
+          "priceMinor": 40000,
+          "currency": "SAR",
+          "teacherId": "teacher-1",
+          "subjectId": "general-curriculum",
+          "timestamp": "2026-10-20T14:48:01.204Z",
+          "fencingToken": 2
+        },
+        {
+          "id": "tx_147f97f2-8f9e-4542-a62d-f79bc50df8c2",
+          "type": "TUTOR_TARDINESS_SLA_PENALTY",
+          "sessionId": "sess_tutor_sla_e2e",
+          "teacherId": "sheikh-ahmed-1",
+          "delayMinutes": 22,
+          "bonusMinutes": 30,
+          "teacherPenaltyMinor": 1750,
+          "policyApplied": "TUTOR_SLA_BREACH_COMPENSATED",
+          "timestamp": "2026-10-20T14:48:01.564Z",
+          "fencingToken": 3
+        },
+        {
+          "id": "tx_23fae8ba-6f89-4621-853d-eec306eee11f",
+          "type": "PURCHASE_PACK",
+          "packId": "custom-pack",
+          "hours": 20,
+          "minutes": 1200,
+          "priceMinor": 40000,
+          "currency": "SAR",
+          "teacherId": "teacher-1",
+          "subjectId": "general-curriculum",
+          "timestamp": "2026-10-20T14:49:11.513Z",
+          "fencingToken": 4
+        },
+        {
+          "id": "tx_5083296d-c0eb-4eb4-9b23-773579212df9",
+          "type": "TUTOR_TARDINESS_SLA_PENALTY",
+          "sessionId": "sess_tutor_sla_e2e",
+          "teacherId": "sheikh-ahmed-1",
+          "delayMinutes": 22,
+          "bonusMinutes": 30,
+          "teacherPenaltyMinor": 1750,
+          "policyApplied": "TUTOR_SLA_BREACH_COMPENSATED",
+          "timestamp": "2026-10-20T14:49:11.532Z",
+          "fencingToken": 5
+        },
+        {
+          "id": "tx_c811ef58-24d5-47c4-8089-94e0cf1164ed",
+          "type": "PURCHASE_PACK",
+          "packId": "custom-pack",
+          "hours": 20,
+          "minutes": 1200,
+          "priceMinor": 40000,
+          "currency": "SAR",
+          "teacherId": "teacher-1",
+          "subjectId": "general-curriculum",
+          "timestamp": "2026-10-20T16:37:27.461Z",
+          "fencingToken": 6
+        },
+        {
+          "id": "tx_cac21a33-5397-4849-8661-db9b4ec6affa",
+          "type": "TUTOR_TARDINESS_SLA_PENALTY",
+          "sessionId": "sess_tutor_sla_e2e",
+          "teacherId": "sheikh-ahmed-1",
+          "delayMinutes": 22,
+          "bonusMinutes": 30,
+          "teacherPenaltyMinor": 1750,
+          "policyApplied": "TUTOR_SLA_BREACH_COMPENSATED",
+          "timestamp": "2026-10-20T16:37:27.600Z",
+          "fencingToken": 7
+        }
+      ]
+    },
+    "adversarial_std_1792509049754": {
+      "studentId": "adversarial_std_1792509049754",
+      "studentName": "Test Student",
+      "parentPhone": "+966500000000",
+      "parentTimezone": "Asia/Riyadh",
+      "currency": "SAR",
+      "hourlyRateMinor": 5000,
+      "teacherHourlySplitMinor": 3500,
+      "academyCommissionMinor": 1500,
+      "totalMinutesPurchased": 60,
+      "minutesUsed": 0,
+      "minutesRemaining": 60,
+      "version": 2,
+      "lowBalanceAlert": false,
+      "whatsappReupLink": null,
+      "transactions": [
+        {
+          "id": "tx_3a833a2c-d068-4164-b9b3-ed4623141a48",
+          "type": "PURCHASE_PACK",
+          "packId": "pack-1h",
+          "hours": 1,
+          "minutes": 60,
+          "priceMinor": 2500,
+          "currency": "SAR",
+          "teacherId": "teacher-1",
+          "subjectId": "general-curriculum",
+          "timestamp": "2026-10-20T15:10:49.889Z",
           "fencingToken": 2
         }
       ]
@@ -1777,6 +1981,72 @@
           "durationMinutes": 45,
           "topic": "quran-tajweed",
           "timestamp": "2026-10-19T20:14:01.788Z",
+          "fencingToken": 3
+        }
+      ],
+      "version": 3
+    },
+    "fam_london_1792505635599": {
+      "familyWalletId": "fam_london_1792505635599",
+      "familyName": "العائلة الكريمة",
+      "parentPhone": "+44 7700 900077",
+      "currency": "GBP",
+      "totalMinutesPurchased": 1800,
+      "minutesRemaining": 1800,
+      "children": [
+        {
+          "studentId": "child-omar-8",
+          "studentName": "Omar",
+          "age": 8,
+          "minutesUsed": 0
+        }
+      ],
+      "transactions": [
+        {
+          "id": "tx_fam_topup_1792505635607",
+          "type": "FAMILY_POOL_TOPUP",
+          "addedMinutes": 1800,
+          "priceMinor": 60000,
+          "timestamp": "2026-10-20T14:13:55.607Z",
+          "fencingToken": 2
+        }
+      ],
+      "version": 2
+    },
+    "fam_debit_1792505635853": {
+      "familyWalletId": "fam_debit_1792505635853",
+      "familyName": "العائلة الكريمة",
+      "parentPhone": "+44 7700 900077",
+      "currency": "GBP",
+      "totalMinutesPurchased": 1800,
+      "minutesRemaining": 1755,
+      "children": [
+        {
+          "studentId": "child-omar-8",
+          "studentName": "Omar",
+          "age": 8,
+          "minutesUsed": 45
+        }
+      ],
+      "transactions": [
+        {
+          "id": "tx_fam_topup_1792505635855",
+          "type": "FAMILY_POOL_TOPUP",
+          "addedMinutes": 1800,
+          "priceMinor": 60000,
+          "timestamp": "2026-10-20T14:13:55.855Z",
+          "fencingToken": 2
+        },
+        {
+          "id": "tx_fam_debit_1792505635905",
+          "type": "CHILD_SESSION_DEBIT",
+          "familyWalletId": "fam_debit_1792505635853",
+          "studentId": "child-omar-8",
+          "studentName": "Omar",
+          "teacherId": "sheikh-ahmed-1",
+          "durationMinutes": 45,
+          "topic": "quran-tajweed",
+          "timestamp": "2026-10-20T14:13:55.905Z",
           "fencingToken": 3
         }
       ],
