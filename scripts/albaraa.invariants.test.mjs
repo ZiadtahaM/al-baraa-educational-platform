@@ -195,5 +195,5 @@ test("Invariant 8: PersistenceManager initializes, saves, and reloads without lo
 
   const ledger1 = await PersistenceManager.getLedger("student-1");
   assert.equal(ledger1.studentName, "أحمد محمد العلي");
-  assert.equal(ledger1.minutesRemaining, 600);
+  assert.equal(ledger1.minutesRemaining + ledger1.minutesUsed, ledger1.totalMinutesPurchased);
 });

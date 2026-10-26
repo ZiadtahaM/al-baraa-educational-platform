@@ -2,7 +2,7 @@
   "meta": {
     "system": "Al-Baraa OS",
     "version": "2.0.0",
-    "lastSyncedAt": "2026-10-20T16:37:27.601Z"
+    "lastSyncedAt": "2026-10-20T16:42:55.073Z"
   },
   "plans": [
     {
@@ -1322,10 +1322,10 @@
       "hourlyRateMinor": 5000,
       "teacherHourlySplitMinor": 3500,
       "academyCommissionMinor": 1500,
-      "totalMinutesPurchased": 3690,
+      "totalMinutesPurchased": 4920,
       "minutesUsed": 0,
-      "minutesRemaining": 3690,
-      "version": 7,
+      "minutesRemaining": 4920,
+      "version": 9,
       "lowBalanceAlert": false,
       "whatsappReupLink": null,
       "transactions": [
@@ -1403,6 +1403,31 @@
           "policyApplied": "TUTOR_SLA_BREACH_COMPENSATED",
           "timestamp": "2026-10-20T16:37:27.600Z",
           "fencingToken": 7
+        },
+        {
+          "id": "tx_92d4370d-f0ee-4b48-afc3-f6bfc3b6a885",
+          "type": "PURCHASE_PACK",
+          "packId": "custom-pack",
+          "hours": 20,
+          "minutes": 1200,
+          "priceMinor": 40000,
+          "currency": "SAR",
+          "teacherId": "teacher-1",
+          "subjectId": "general-curriculum",
+          "timestamp": "2026-10-20T16:42:55.056Z",
+          "fencingToken": 8
+        },
+        {
+          "id": "tx_fc5f4744-a5e7-4d03-b739-223eb590b7a0",
+          "type": "TUTOR_TARDINESS_SLA_PENALTY",
+          "sessionId": "sess_tutor_sla_e2e",
+          "teacherId": "sheikh-ahmed-1",
+          "delayMinutes": 22,
+          "bonusMinutes": 30,
+          "teacherPenaltyMinor": 1750,
+          "policyApplied": "TUTOR_SLA_BREACH_COMPENSATED",
+          "timestamp": "2026-10-20T16:42:55.071Z",
+          "fencingToken": 9
         }
       ]
     },

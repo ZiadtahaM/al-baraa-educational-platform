@@ -1,0 +1,47 @@
+{
+  "app": "al-baraa-platform",
+  "cloudflareProject": "al-baraa-platform",
+  "deployDir": "dist",
+  "liveUrl": "https://al-baraa-platform.pages.dev",
+  "bannedStrings": [
+    "https://zoom.us",
+    "zoom.us/j"
+  ],
+  "features": [
+    {
+      "id": "join-live-btn",
+      "description": "Student live secure classroom entry link",
+      "autoClick": false
+    },
+    {
+      "id": "family-wallet-card",
+      "description": "Family pool wallet card with shared sibling quota",
+      "autoClick": false
+    },
+    {
+      "id": "parent-phone-masked",
+      "description": "Egyptian PDPL masked parent phone display in teacher portal",
+      "autoClick": false
+    },
+    {
+      "id": "ai-recitation-btn",
+      "description": "AI audio recitation and Tajweed analysis gate",
+      "autoClick": true
+    },
+    {
+      "id": "tutor-tardiness-btn",
+      "description": "Automatic tutor tardiness penalty calculation gate",
+      "autoClick": true
+    },
+    {
+      "id": "purchase-pack-btn",
+      "description": "Purchase hours pack gate",
+      "autoClick": false
+    },
+    {
+      "id": "invariants-btn",
+      "description": "Edge platform integrity and invariants check",
+      "autoClick": true
+    }
+  ]
+}
