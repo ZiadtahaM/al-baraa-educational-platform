@@ -1,0 +1,32 @@
+name: Al-Baraa OS Quality Gate
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  verify-invariants:
+    name: Domain Invariants & Pedagogical Ledger
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Domain Invariants Test Suite
+        run: node --test scripts/albaraa.invariants.test.mjs
+
+      - name: Verify Ubiquitous Language Contract
+        run: |
+          test -f UBIQUITOUS_LANGUAGE.md
+          grep -q "HourPack" UBIQUITOUS_LANGUAGE.md
+          grep -q "HourPackLedger" UBIQUITOUS_LANGUAGE.md
+          grep -q "LowBalanceThreshold" UBIQUITOUS_LANGUAGE.md
+          grep -q "TeacherPayoutSplit" UBIQUITOUS_LANGUAGE.md
+          grep -q "StudySheet" UBIQUITOUS_LANGUAGE.md
