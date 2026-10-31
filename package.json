@@ -9,6 +9,7 @@
     "build:prod": "pnpm install --prefer-offline && rm -rf node_modules/.vite-temp && tsc -b && BUILD_MODE=prod vite build",
     "lint": "pnpm install --prefer-offline && eslint .",
     "preview": "pnpm install --prefer-offline && vite preview",
+    "test": "node scripts/gate2-domain-invariants.test.mjs && node scripts/gate3-idempotency-outbox.test.mjs && python scripts/gate1-sqlite-sabotage.test.py && python scripts/gate4-dom-slop-scanner.test.py && python scripts/gate5-playwright-hard-reload.test.py",
     "install-deps": "pnpm install --prefer-offline",
     "clean": "rm -rf node_modules .pnpm-store pnpm-lock.yaml && pnpm store prune"
   },
