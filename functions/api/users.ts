@@ -1,9 +1,17 @@
 import { drizzle } from 'drizzle-orm/d1';
 import { users } from '../../src/db/schema';
-import { eq } from 'drizzle-orm';
+import { verifyToken } from './_auth_helper';
 
 export async function onRequest(context: any) {
   try {
+    const session = await verifyToken(context.request);
+    if (!session || session.role !== 'admin') {
+      return new Response(JSON.stringify({ error: 'Unauthorized: Admin role required' }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' },
+      });
+    }
+
     const db = drizzle(context.env.DB);
     const allUsers = await db.select({
       id: users.id,

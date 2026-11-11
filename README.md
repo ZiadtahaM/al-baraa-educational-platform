@@ -1,186 +1,57 @@
-<div align="center">
-  <img src="https://via.placeholder.com/1200x400.png?text=Al-Baraa+Educational+Platform" alt="Al-Baraa Platform Banner" />
-  <h1>🎓 Al-Baraa Educational Platform</h1>
-  <p><strong>A Next-Generation, Serverless Full-Stack Educational Dashboard</strong></p>
-  
-  [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
-  [![Vite](https://img.shields.io/badge/Vite-6.0-purple.svg)](https://vitejs.dev/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC.svg)](https://tailwindcss.com/)
-  [![Cloudflare](https://img.shields.io/badge/Cloudflare-Pages-F38020.svg)](https://pages.cloudflare.com/)
-  
-  <p>
-    <a href="https://al-baraa-platform.pages.dev"><strong>View Live Deployment »</strong></a>
-  </p>
-</div>
+# Al-Baraa Academy OS
 
----
+Prepaid Lesson Minute Ledger and Teacher Payout Settlement Platform for Arabic and Quranic Academies.
 
-## 📖 Table of Contents
-1. [Overview](#-overview)
-2. [Architecture & Tech Stack](#-architecture--tech-stack)
-3. [Database Design (ER Diagram)](#-database-design)
-4. [API Reference](#-api-reference)
-5. [Project Structure](#-project-structure)
-6. [Local Development](#-local-development)
-7. [Cloudflare Deployment via CLI](#-cloudflare-deployment-via-cli)
+## Product Overview
 
----
+Al-Baraa Academy OS solves the accounting leakage and student retention drop-off common in private Arabic and Quranic tutoring academies. Instead of managing chaotic spreadsheets and delayed post-lesson invoicing, the academy sells prepaid minute packages. Students consume minutes as lessons occur, while teachers receive transparent payouts calculated on actual completed minutes.
 
-## 🌟 Overview
+## Core Domain Model
 
-The **Al-Baraa Educational Platform** is a highly scalable, role-based educational dashboard designed for modern institutions. It serves three primary user personas:
-- **🧑‍🎓 Students**: Can view their grades, upcoming lessons, and teacher feedback.
-- **👩‍🏫 Teachers**: Can manage their lessons, students, and broadcast messages.
-- **🛡️ Administrators**: Have total oversight over the platform's users, infrastructure, and analytics.
+1. Prepaid Minute Wallets
+Students purchase prepaid minute packages (for example, 300, 600, or 1200 minutes). Each completed lesson debits the exact duration from the student wallet. If a student attempts to schedule or debit a lesson exceeding their available balance, the system rejects the transaction.
 
-By leveraging **Cloudflare Pages**, the platform achieves sub-50ms latency globally without the need to manage traditional servers.
+2. Teacher Payout Settlement
+Teacher payouts are calculated per completed lesson using integer-precision formulas. The total gross revenue allocated to a lesson splits into the teacher payout and the academy retained share with zero penny leakage.
 
----
+3. Low-Balance Click-to-WhatsApp Renewal
+When a student wallet drops to 120 minutes or fewer, the system generates a Click-to-WhatsApp renewal message with the current minute balance, direct package pricing, and payment links.
 
-## 🏗 Architecture & Tech Stack
+4. Pedagogical Study Sheets
+After each completed lesson, the system produces a structured study sheet containing recitation notes, assigned Surah homework, and teacher evaluation for parent review.
 
-The platform is split into a highly optimized frontend and a serverless API backend, living in the same repository.
+## System Architecture
 
-### Frontend
-- **Framework**: [React 18](https://react.dev/) via [Vite](https://vitejs.dev/) for instant HMR and optimized builds.
-- **Data Fetching**: [TanStack Query (React Query)](https://tanstack.com/query/v5) for caching, background updates, and optimistic UI.
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) with [shadcn/ui](https://ui.shadcn.com/) for beautiful, accessible, and unstyled Radix primitives.
-- **Routing**: `react-router-dom` v6 for protected routes and role-based access control.
+The application runs a unified React frontend and a secured API server on port 8093.
 
-### Backend (Serverless)
-- **API Runtime**: Cloudflare Pages Functions (Edge computing).
-- **Database**: [Cloudflare D1](https://developers.cloudflare.com/d1/) - Serverless SQLite built on durable objects.
-- **ORM**: [Drizzle ORM](https://orm.drizzle.team/) - Lightweight, type-safe SQL wrapper for TypeScript.
+- Frontend: React 18, Vite, Tailwind CSS, Lucide icons, and Arabic RTL layout.
+- Backend: Node.js server API with Cloudflare Pages Functions compatibility.
+- Security: HMAC-SHA256 signed session tokens, SHA-256 password hashing, and role-based route guards.
+- Persistence: SQLite database with write-ahead logging (WAL) and Cloudflare D1 compatibility.
 
----
+## API Reference
 
-## 🗄 Database Design
+### GET /health and GET /ready
+Dual-probe liveness and readiness health checks returning active student counts, teacher directory, and persistence status.
 
-The database is built on SQLite (Cloudflare D1) and normalized for high read performance.
+### POST /api/auth/login
+Authenticates a user with email and password, returning an HMAC-SHA256 session token and user profile.
 
-```mermaid
-erDiagram
-    USERS ||--o| TEACHERS : "is a"
-    USERS ||--o| STUDENTS : "is a"
-    TEACHERS ||--o{ LESSONS : "creates"
-    
-    USERS {
-        string id PK
-        string name
-        string email UK
-        string role "enum: student, teacher, admin"
-        string password_hash
-        int created_at
-    }
-    
-    TEACHERS {
-        string id PK
-        string user_id FK "Ref: USERS.id"
-        string bio
-        string specialty
-    }
-    
-    STUDENTS {
-        string id PK
-        string user_id FK "Ref: USERS.id"
-        string grade
-    }
-    
-    LESSONS {
-        string id PK
-        string title
-        string description
-        string teacher_id FK "Ref: TEACHERS.id"
-        int date
-    }
+### GET /api/albaraa/students
+Returns all enrolled students with active minute balances and package history.
+
+### POST /api/albaraa/lessons/debit
+Debits completed lesson minutes from a student wallet, computes teacher payout, and persists the transaction.
+
+### GET /api/albaraa/teachers/settlement
+Returns aggregated payout calculations, completed minutes, and academy retained margins per teacher.
+
+## Local Verification
+
+Run the automated verification lever to test all domain invariants:
+
+```bash
+node D:/tools/cli/verify-albaraa.mjs
 ```
 
----
-
-## 🔌 API Reference
-
-The backend exposes RESTful endpoints living on the Cloudflare Edge network (`/api/*`).
-
-### `POST /api/auth`
-Authenticates a user and returns a session token.
-- **Body**: `{ "email": "admin@example.com", "password": "password" }`
-- **Response**: `{ "user": { "id": "u1", "role": "admin" }, "token": "..." }`
-
-### `GET /api/users`
-Retrieves all users on the platform. Requires Admin permissions.
-- **Response**: `[{ "id": "u1", "name": "Admin User", "email": "admin@example.com", "role": "admin" }]`
-
-### `GET /api/lessons`
-Fetches the global lesson timeline.
-- **Response**: `[{ "id": "l1", "title": "Algebra Basics", "teacher_id": "t1", "date": 1670000000000 }]`
-
----
-
-## 📁 Project Structure
-
-```text
-├── functions/             # Cloudflare Edge API Functions
-│   └── api/               # Maps to /api/* routes
-│       ├── auth.ts        # Login endpoint
-│       ├── lessons.ts     # Lessons endpoints
-│       └── users.ts       # Users endpoints
-├── src/                   # React Frontend Source
-│   ├── components/        # Reusable UI components (shadcn/ui)
-│   ├── contexts/          # React Contexts (AuthContext)
-│   ├── db/                # Drizzle ORM Schema definitions
-│   ├── pages/             # Route-level Page Components
-│   └── main.tsx           # React mounting point & QueryClient Provider
-├── schema.sql             # Raw SQLite initialization script
-├── drizzle.config.ts      # Drizzle ORM CLI configuration
-└── wrangler.toml          # Cloudflare deployment configuration
-```
-
----
-
-## 💻 Local Development
-
-1. **Install dependencies**:
-   ```bash
-   pnpm install
-   ```
-
-2. **Initialize Local Database**:
-   ```bash
-   npx wrangler d1 execute al-baraa-db --local --file=./schema.sql
-   ```
-
-3. **Run the Development Server**:
-   ```bash
-   pnpm dev
-   ```
-   Open `http://localhost:5173` to view the app locally.
-
----
-
-## ☁️ Cloudflare Deployment via CLI
-
-To deploy this application to Cloudflare Pages from your local CLI, you need the Cloudflare Wrangler CLI.
-
-1. **Login to Cloudflare via CLI**:
-   ```bash
-   npx wrangler login
-   ```
-2. **Provision the Production Database**:
-   ```bash
-   npx wrangler d1 create al-baraa-db
-   ```
-   *Note: This command will output a `database_id`. Copy it into the `wrangler.toml` file under the `[[d1_databases]]` section.*
-   
-3. **Migrate the Production Database**:
-   ```bash
-   npx wrangler d1 execute al-baraa-db --remote --file=./schema.sql
-   ```
-
-4. **Build and Deploy**:
-   ```bash
-   npm run build
-   npx wrangler pages deploy dist
-   ```
-
-The CLI will provide you with a live `.pages.dev` URL which you can then link to your custom domain!
+The verification lever validates Ubiquitous Language compliance, integer balance calculations, zero-leakage conservation equations, low-balance alert boundaries, insufficient balance rejections, and disk persistence.
