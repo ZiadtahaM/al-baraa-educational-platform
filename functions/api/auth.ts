@@ -1,4 +1,3 @@
-import { getJwtSecret } from './_jwt_secret';
 import { drizzle } from 'drizzle-orm/d1';
 import { users } from '../../src/db/schema';
 import { eq } from 'drizzle-orm';
@@ -87,4 +86,14 @@ export async function onRequestPost(context: any) {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+}
+
+type AuthEnv = { JWT_SECRET?: string };
+
+function getJwtSecret(env: AuthEnv): string {
+  const secret = env?.JWT_SECRET;
+  if (typeof secret !== 'string' || secret.trim().length < 32) {
+    throw new Error('Server authentication is not configured');
+  }
+  return secret;
 }
