@@ -1,6 +1,7 @@
-const JWT_SECRET = 'al-baraa-production-jwt-secret-key-2026';
+import { getJwtSecret, type AuthEnv } from './_jwt_secret';
 
-export async function verifyToken(request: Request): Promise<{ sub: string; email: string; role: string; name: string } | null> {
+export async function verifyToken(request: Request, env: AuthEnv): Promise<{ sub: string; email: string; role: string; name: string } | null> {
+  const jwtSecret = getJwtSecret(env);
   const authHeader = request.headers.get('Authorization') || '';
   if (!authHeader.startsWith('Bearer ')) {
     return null;
@@ -17,7 +18,7 @@ export async function verifyToken(request: Request): Promise<{ sub: string; emai
   try {
     const key = await crypto.subtle.importKey(
       'raw',
-      new TextEncoder().encode(JWT_SECRET),
+      new TextEncoder().encode(jwtSecret),
       { name: 'HMAC', hash: 'SHA-256' },
       false,
       ['verify']
