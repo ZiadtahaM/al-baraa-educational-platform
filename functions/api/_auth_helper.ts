@@ -1,4 +1,3 @@
-import { getJwtSecret, type AuthEnv } from './_jwt_secret';
 
 export async function verifyToken(request: Request, env: AuthEnv): Promise<{ sub: string; email: string; role: string; name: string } | null> {
   const jwtSecret = getJwtSecret(env);
@@ -42,4 +41,14 @@ export async function verifyToken(request: Request, env: AuthEnv): Promise<{ sub
   } catch (e) {
     return null;
   }
+}
+
+type AuthEnv = { JWT_SECRET?: string };
+
+function getJwtSecret(env: AuthEnv): string {
+  const secret = env?.JWT_SECRET;
+  if (typeof secret !== 'string' || secret.trim().length < 32) {
+    throw new Error('Server authentication is not configured');
+  }
+  return secret;
 }
