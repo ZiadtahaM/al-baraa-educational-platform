@@ -27,3 +27,8 @@ dist-ssr
 data/*.sqlite*
 *.sqlite*
 
+
+# Local Pages runtime secrets
+.dev.vars*
+.env*
+!.env.example
