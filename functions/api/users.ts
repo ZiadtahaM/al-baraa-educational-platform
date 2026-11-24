@@ -4,7 +4,7 @@ import { verifyToken } from './_auth_helper';
 
 export async function onRequest(context: any) {
   try {
-    const session = await verifyToken(context.request);
+    const session = await verifyToken(context.request, context.env);
     if (!session || session.role !== 'admin') {
       return new Response(JSON.stringify({ error: 'Unauthorized: Admin role required' }), {
         status: 403,
