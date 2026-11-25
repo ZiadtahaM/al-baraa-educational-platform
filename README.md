@@ -48,10 +48,18 @@ Returns aggregated payout calculations, completed minutes, and academy retained 
 
 ## Local Verification
 
-Run the automated verification lever to test all domain invariants:
+Run the repository invariant tests:
 
 ```bash
-node D:/tools/cli/verify-albaraa.mjs
+node scripts/albaraa.invariants.test.mjs
 ```
+
+## Status
+
+Prototype. Domain logic is covered by the invariant tests in `scripts/`; Cloudflare Pages/D1 deployment and end-to-end login, role and persistence checks are still open (see [PR #7](https://github.com/ZiadtahaM/al-baraa-educational-platform/pull/7)).
+
+## License
+
+MIT - see [LICENSE](LICENSE).
 
 The verification lever validates Ubiquitous Language compliance, integer balance calculations, zero-leakage conservation equations, low-balance alert boundaries, insufficient balance rejections, and disk persistence.
