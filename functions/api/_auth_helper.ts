@@ -1,6 +1,6 @@
-const JWT_SECRET = 'al-baraa-production-jwt-secret-key-2026';
 
-export async function verifyToken(request: Request): Promise<{ sub: string; email: string; role: string; name: string } | null> {
+export async function verifyToken(request: Request, env: AuthEnv): Promise<{ sub: string; email: string; role: string; name: string } | null> {
+  const jwtSecret = getJwtSecret(env);
   const authHeader = request.headers.get('Authorization') || '';
   if (!authHeader.startsWith('Bearer ')) {
     return null;
@@ -17,7 +17,7 @@ export async function verifyToken(request: Request): Promise<{ sub: string; emai
   try {
     const key = await crypto.subtle.importKey(
       'raw',
-      new TextEncoder().encode(JWT_SECRET),
+      new TextEncoder().encode(jwtSecret),
       { name: 'HMAC', hash: 'SHA-256' },
       false,
       ['verify']
@@ -41,4 +41,14 @@ export async function verifyToken(request: Request): Promise<{ sub: string; emai
   } catch (e) {
     return null;
   }
+}
+
+type AuthEnv = { JWT_SECRET?: string };
+
+function getJwtSecret(env: AuthEnv): string {
+  const secret = env?.JWT_SECRET;
+  if (typeof secret !== 'string' || secret.trim().length < 32) {
+    throw new Error('Server authentication is not configured');
+  }
+  return secret;
 }

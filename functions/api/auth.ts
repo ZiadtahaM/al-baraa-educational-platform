@@ -2,7 +2,6 @@ import { drizzle } from 'drizzle-orm/d1';
 import { users } from '../../src/db/schema';
 import { eq } from 'drizzle-orm';
 
-const JWT_SECRET = 'al-baraa-production-jwt-secret-key-2026';
 
 async function sha256Hex(message: string): Promise<string> {
   const msgUint8 = new TextEncoder().encode(message);
@@ -11,7 +10,7 @@ async function sha256Hex(message: string): Promise<string> {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
 }
 
-async function signToken(payload: object): Promise<string> {
+async function signToken(payload: object, jwtSecret: string): Promise<string> {
   const header = { alg: 'HS256', typ: 'JWT' };
   const b64Header = btoa(JSON.stringify(header)).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
   const b64Payload = btoa(JSON.stringify({ ...payload, exp: Math.floor(Date.now() / 1000) + 86400 * 7 })).replace(/=/g, '').replace(/\+/g, '-').replace(/\//g, '_');
@@ -19,7 +18,7 @@ async function signToken(payload: object): Promise<string> {
   
   const key = await crypto.subtle.importKey(
     'raw',
-    new TextEncoder().encode(JWT_SECRET),
+    new TextEncoder().encode(jwtSecret),
     { name: 'HMAC', hash: 'SHA-256' },
     false,
     ['sign']
@@ -31,6 +30,7 @@ async function signToken(payload: object): Promise<string> {
 
 export async function onRequestPost(context: any) {
   try {
+    const jwtSecret = getJwtSecret(context.env);
     const db = drizzle(context.env.DB);
     const body = await context.request.json();
     const { email, password } = body;
@@ -66,7 +66,7 @@ export async function onRequestPost(context: any) {
       email: userRecord.email,
       role: userRecord.role,
       name: userRecord.name
-    });
+    }, jwtSecret);
 
     return new Response(JSON.stringify({
       success: true,
@@ -86,4 +86,14 @@ export async function onRequestPost(context: any) {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+}
+
+type AuthEnv = { JWT_SECRET?: string };
+
+function getJwtSecret(env: AuthEnv): string {
+  const secret = env?.JWT_SECRET;
+  if (typeof secret !== 'string' || secret.trim().length < 32) {
+    throw new Error('Server authentication is not configured');
+  }
+  return secret;
 }

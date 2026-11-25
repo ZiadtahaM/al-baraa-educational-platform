@@ -1,5 +1,11 @@
 # Al-Baraa Academy OS
 
+> Prototype status: this is portfolio code, not a verified live academy service. The domain descriptions below describe intended behavior, not customer results. No claim of reduced leakage or improved retention has been measured.
+>
+> Deployment prerequisites: configure a Cloudflare Pages project with `dist` as the build output, bind its own D1 database as `DB`, review/apply `schema.sql` against an empty demo database, and set a long random `JWT_SECRET` as a host secret. Do not commit that secret or reuse the repository database ID without checking ownership. This PR removes hard-coded signing keys; do not merge it until the host secret is confirmed.
+>
+> Before using real accounts or lessons, verify login, role isolation, persistence and the deployed Functions routes end to end. Hosting and production readiness have not been verified. The separate Node server and Pages Functions are distinct code paths.
+
 Prepaid Lesson Minute Ledger and Teacher Payout Settlement Platform for Arabic and Quranic Academies.
 
 ## Product Overview
@@ -48,10 +54,10 @@ Returns aggregated payout calculations, completed minutes, and academy retained 
 
 ## Local Verification
 
-Run the automated verification lever to test all domain invariants:
+Run the repository domain test from its root:
 
 ```bash
-node D:/tools/cli/verify-albaraa.mjs
+node scripts/albaraa.invariants.test.mjs
 ```
 
-The verification lever validates Ubiquitous Language compliance, integer balance calculations, zero-leakage conservation equations, low-balance alert boundaries, insufficient balance rejections, and disk persistence.
+This is a code-level check, not proof of deployed authentication, Cloudflare bindings, external integrations or production persistence. Other checks are listed in `package.json`; their presence does not imply they all passed.
